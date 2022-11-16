@@ -65,6 +65,11 @@ function App() {
       <div className="showingArtists">
         {" "}
         {artists.indexOf(artist) + 1 + "."} {artist.name}
+        {artist.images.length ? (
+          <img width="3%" src={artist.images[0].url}></img>
+        ) : (
+          <h> </h>
+        )}
       </div>
     ));
   }
