@@ -60,6 +60,7 @@ function App() {
     setArtists(data.artists.items);
   }
 
+  //note that if the length of pictures does not exist, we do not access it!
   function renderArtists() {
     return artists.map((artist) => (
       <div className="showingArtists">
