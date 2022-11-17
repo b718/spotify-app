@@ -53,6 +53,7 @@ function App() {
       params: {
         q: searchKey,
         type: "artist",
+        limit: 30,
       },
     });
 
@@ -67,7 +68,7 @@ function App() {
         {" "}
         {artists.indexOf(artist) + 1 + "."} {artist.name}
         {artist.images.length ? (
-          <img width="3%" src={artist.images[0].url}></img>
+          <img src={artist.images[0].url} className="artistIMG"></img>
         ) : (
           <h> </h>
         )}

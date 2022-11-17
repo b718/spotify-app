@@ -8,7 +8,7 @@
 }
 
 .loginDiv{
-  margin: 3rem;
+  margin: 3rem; 
 }
 
 .logoutDiv{
@@ -25,4 +25,10 @@
 
 .showingArtists {
   font-size: 1.5rem;
+}
+
+.artistIMG {
+  width: 2%;
+  height: 2%;
+  border-radius: 25px;
 }
