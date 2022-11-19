@@ -138,7 +138,6 @@ function App() {
         <div className="loginDiv">
           <a
             href={`${authendpointURL}?client_id=${clientID}&redirect_uri=${redirectURL}&response_type=${responseType}&scope=${scopeType}`}
-            className="loginSpotify"
           >
             Login To Spotify
           </a>
