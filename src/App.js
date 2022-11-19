@@ -11,7 +11,7 @@ function App() {
   const [token, setToken] = useState("");
   const [searchKey, setSearchKey] = useState("");
   const [artists, setArtists] = useState([]);
-  const [number, setNumber] = useState(1);
+  const [topItems, setTopItems] = useState([]);
 
   //this useEffect will only run once as we do not
   //have it activate with something changing!
@@ -61,12 +61,32 @@ function App() {
     setArtists(data.artists.items);
   }
 
+  async function searchTopItems(e) {
+    e.preventDefault();
+    const { data } = await axios.get(
+      "https://api.spotify.com/v1/me/top/albums",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          time_range: "medium_term",
+          limit: 10,
+          offset: 0,
+        },
+      }
+    );
+    console.log(data.items);
+    setTopItems(data.items);
+  }
+
   //note that if the length of pictures does not exist, we do not access it!
   function renderArtists() {
     return artists.map((artist) => (
       <div className="showingArtists">
         {" "}
         {artists.indexOf(artist) + 1 + "."} {artist.name}
+        <h> </h>
         {artist.images.length ? (
           <img src={artist.images[0].url} className="artistIMG"></img>
         ) : (
@@ -75,6 +95,8 @@ function App() {
       </div>
     ));
   }
+
+  function renderTopItems() {}
 
   return (
     <div className="App">
@@ -97,7 +119,7 @@ function App() {
 
       {token ? (
         <div className="searchDiv">
-          <form onSubmit={searchArtists}>
+          <form onSubmit={searchTopItems}>
             <input
               type="text"
               onChange={(e) => setSearchKey(e.target.value)}
