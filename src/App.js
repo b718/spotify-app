@@ -7,6 +7,7 @@ function App() {
   const redirectURL = "http://localhost:3000";
   const authendpointURL = "https://accounts.spotify.com/authorize";
   const responseType = "token";
+  const scopeType = "user-top-read";
 
   const [token, setToken] = useState("");
   const [searchKey, setSearchKey] = useState("");
@@ -64,15 +65,16 @@ function App() {
   async function searchTopItems(e) {
     e.preventDefault();
     const { data } = await axios.get(
-      "https://api.spotify.com/v1/me/top/albums",
+      "https://api.spotify.com/v1/me/top/artists",
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
         params: {
           time_range: "medium_term",
-          limit: 10,
+          limit: 20,
           offset: 0,
+        },
+        headers: {
+          //fix the authorization so that the token works properly!
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -96,7 +98,20 @@ function App() {
     ));
   }
 
-  function renderTopItems() {}
+  function renderTopItems() {
+    return topItems.map((topItem) => (
+      <div className="showingTopItems">
+        {" "}
+        {topItems.indexOf(topItem) + 1 + "."} {topItem.name}
+        <h> </h>
+        {topItem.images.length ? (
+          <img src={topItem.images[0].url} className="topItemsIMG"></img>
+        ) : (
+          <h> </h>
+        )}
+      </div>
+    ));
+  }
 
   return (
     <div className="App">
@@ -105,7 +120,7 @@ function App() {
       {!token ? (
         <div className="loginDiv">
           <a
-            href={`${authendpointURL}?client_id=${clientID}&redirect_uri=${redirectURL}&response_type=${responseType}`}
+            href={`${authendpointURL}?client_id=${clientID}&redirect_uri=${redirectURL}&response_type=${responseType}&scope=${scopeType}`}
             className="loginSpotify"
           >
             Login To Spotify
@@ -131,7 +146,7 @@ function App() {
       ) : (
         <h> </h>
       )}
-      {token ? renderArtists() : <h></h>}
+      {token ? renderTopItems() : <h></h>}
     </div>
   );
 }
