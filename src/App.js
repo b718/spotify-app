@@ -16,6 +16,7 @@ function App() {
 
   //this useEffect will only run once as we do not
   //have it activate with something changing!
+
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
@@ -115,7 +116,7 @@ function App() {
 
   return (
     <div className="App">
-      <h className="spotifyHeader">Who Are Your Top Artists?</h>
+      <h className="spotifyHeader">Spotify API Testing</h>
 
       {!token ? (
         <div className="loginDiv">
@@ -134,7 +135,8 @@ function App() {
 
       {token ? (
         <div className="searchDiv">
-          <form onSubmit={searchTopItems}>
+          <h className="searhForHeader"> Search For Your Artists </h>
+          <form onSubmit={searchArtists}>
             <input
               type="text"
               onChange={(e) => setSearchKey(e.target.value)}
@@ -146,7 +148,24 @@ function App() {
       ) : (
         <h> </h>
       )}
-      {token ? renderTopItems() : <h></h>}
+
+      {token ? (
+        <div>
+          {" "}
+          <h> Related To Artist </h> {renderArtists()}{" "}
+        </div>
+      ) : (
+        <h></h>
+      )}
+
+      {token ? (
+        <div>
+          {" "}
+          <h> Top Artists </h> {renderTopItems()}{" "}
+        </div>
+      ) : (
+        <h></h>
+      )}
     </div>
   );
 }
