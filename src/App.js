@@ -88,7 +88,15 @@ function App() {
     return artists.map((artist) => (
       <div className="showingArtists">
         {" "}
-        {artists.indexOf(artist) + 1 + "."} {artist.name}
+        {artists.indexOf(artist) + 1 + "."}
+        <a
+          className="artistLink"
+          href={artist.external_urls.spotify}
+          target="blank"
+        >
+          {" "}
+          {artist.name}{" "}
+        </a>
         <h> </h>
         {artist.images.length ? (
           <img src={artist.images[0].url} className="artistIMG"></img>
@@ -103,7 +111,15 @@ function App() {
     return topItems.map((topItem) => (
       <div className="showingTopItems">
         {" "}
-        {topItems.indexOf(topItem) + 1 + "."} {topItem.name}
+        {topItems.indexOf(topItem) + 1 + "."}
+        <a
+          className="topItemLink"
+          href={topItem.external_urls.spotify}
+          target="blank"
+        >
+          {" "}
+          {topItem.name}
+        </a>
         <h> </h>
         {topItem.images.length ? (
           <img src={topItem.images[0].url} className="topItemsIMG"></img>
@@ -149,19 +165,25 @@ function App() {
         <h> </h>
       )}
 
+      {token ? <div> {renderArtists()} </div> : <h></h>}
+
       {token ? (
-        <div>
+        <div className="topUserItems">
           {" "}
-          <h> Related To Artist </h> {renderArtists()}{" "}
+          <h>Display Top Artists</h>{" "}
+          <div>
+            <button onClick={searchTopItems}> Find Top Aritsts</button>
+          </div>
         </div>
       ) : (
-        <h></h>
+        <h> </h>
       )}
 
       {token ? (
         <div>
           {" "}
-          <h> Top Artists </h> {renderTopItems()}{" "}
+          <h className="findTopArtistsHeader"> Top Artists </h>{" "}
+          {renderTopItems()}{" "}
         </div>
       ) : (
         <h></h>

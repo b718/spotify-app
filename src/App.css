@@ -25,6 +25,7 @@
 
 .showingArtists {
   font-size: 1.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .artistIMG {
@@ -33,17 +34,42 @@
   border-radius: 25px;
 }
 
+.artistIMG:hover {
+  width: 30%;
+  height: 30%;
+}
+
+
 .showingTopItems {
   font-size: 1.5rem;
 }
 
 .topItemsIMG {
-  width: 5%;
-  height: 5%;
+  width: 3%;
+  height: 3%;
   border-radius: 25px;
 }
 
 .topItemsIMG:hover {
   width: 30%;
   height: 30%;
+}
+
+.topUserItems {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.findTopArtistsHeader {
+  padding-bottom: 0.5rem;
+}
+
+.artistLink {
+  text-decoration: none;
+  color: black;
+}
+
+.topItemLink {
+  text-decoration: none;
+  color: black;
 }
