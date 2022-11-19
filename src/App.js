@@ -69,7 +69,7 @@ function App() {
       {
         params: {
           time_range: "medium_term",
-          limit: 20,
+          limit: 30,
           offset: 0,
         },
         headers: {
@@ -115,7 +115,7 @@ function App() {
 
   return (
     <div className="App">
-      <h className="spotifyHeader">Who Relates To Your Favourite Artist?</h>
+      <h className="spotifyHeader">Who Are Your Top Artists?</h>
 
       {!token ? (
         <div className="loginDiv">
