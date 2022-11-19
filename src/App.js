@@ -113,7 +113,7 @@ function App() {
         {" "}
         {topItems.indexOf(topItem) + 1 + "."}
         <a
-          className="topItemLink"
+          className="artistLink"
           href={topItem.external_urls.spotify}
           target="blank"
         >
@@ -179,15 +179,7 @@ function App() {
         <h> </h>
       )}
 
-      {token ? (
-        <div>
-          {" "}
-          <h className="findTopArtistsHeader"> Top Artists </h>{" "}
-          {renderTopItems()}{" "}
-        </div>
-      ) : (
-        <h></h>
-      )}
+      {token ? <div> {renderTopItems()} </div> : <h></h>}
     </div>
   );
 }
