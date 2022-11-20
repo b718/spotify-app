@@ -99,14 +99,8 @@ function App() {
           {artist.name}{" "}
         </a>
         <h> </h> */}
-        {artists.indexOf(artist) + 1 + "."}
-        {artist.name}{" "}
-        {artist.images.length ? (
-          <img src={artist.images[0].url} className="artistIMG"></img>
-        ) : (
-          <h> </h>
-        )}
-        <Artist artist={artist} />
+
+        <Artist artist={artist} artistsArray={artists} />
       </div>
     ));
   }
@@ -126,7 +120,7 @@ function App() {
         </a>
         <h> </h>
         {topItem.images.length ? (
-          <img src={topItem.images[0].url} className="topItemsIMG"></img>
+          <img src={topItem.images[0].url} className="artistIMG"></img>
         ) : (
           <h> </h>
         )}

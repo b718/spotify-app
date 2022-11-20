@@ -41,20 +41,8 @@
   height: 30%;
 }
 
-
 .showingTopItems {
   font-size: 1.5rem;
-}
-
-.topItemsIMG {
-  max-width: 3%;
-  max-height: 3%;
-  border-radius: 25px;
-}
-
-.topItemsIMG:hover {
-  width: 30%;
-  height: 30%;
 }
 
 .topUserItems {
@@ -80,4 +68,20 @@
   font-size: 1rem;
   text-decoration: none;
   color: black;
+}
+
+.artistLink {
+  text-decoration: none;
+  color: black;
+
+}
+
+.artistDescDiv {
+  padding-top: 1rem;
+}
+
+.artistDiv .contentDropDown{
+  height: 0px;
+  overflow: hidden;
+  transition: height ease 1.0s;
 }
