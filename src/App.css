@@ -36,11 +36,6 @@
   border-radius: 25px;
 }
 
-.artistIMG:hover {
-  width: 30%;
-  height: 30%;
-}
-
 .showingTopItems {
   font-size: 1.5rem;
 }

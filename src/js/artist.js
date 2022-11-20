@@ -3,13 +3,27 @@ import { useState, useRef } from "react";
 
 const Artist = ({ artist, artistsArray }) => {
   const [isActive, setIsActive] = useState(false);
+  const [picActive, setPicActive] = useState(false);
   const parentRef = useRef();
+
+  function changePic() {
+    setPicActive(!picActive);
+  }
   return (
     <div className="artistDiv">
       {artistsArray.indexOf(artist) + 1 + "."}
       <h onClick={(e) => setIsActive(!isActive)}> {artist.name} </h>
       {artist.images.length ? (
-        <img src={artist.images[0].url} className="artistIMG"></img>
+        <img
+          onClick={changePic}
+          style={
+            !picActive
+              ? { width: "3%", height: "3%" }
+              : { width: "30%", height: "30%" }
+          }
+          src={artist.images[0].url}
+          className="artistIMG"
+        ></img>
       ) : (
         <h> </h>
       )}
