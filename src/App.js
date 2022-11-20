@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
+import Artist from "./js/artist.js";
 
 function App() {
   const clientID = "8749d4d40a72490aac3a512871158c4a";
@@ -87,7 +88,7 @@ function App() {
   function renderArtists() {
     return artists.map((artist) => (
       <div className="showingArtists">
-        {" "}
+        {/* {" "}
         {artists.indexOf(artist) + 1 + "."}
         <a
           className="artistLink"
@@ -97,12 +98,15 @@ function App() {
           {" "}
           {artist.name}{" "}
         </a>
-        <h> </h>
+        <h> </h> */}
+        {artists.indexOf(artist) + 1 + "."}
+        {artist.name}{" "}
         {artist.images.length ? (
           <img src={artist.images[0].url} className="artistIMG"></img>
         ) : (
           <h> </h>
         )}
+        <Artist artist={artist} />
       </div>
     ));
   }
