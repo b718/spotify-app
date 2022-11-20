@@ -29,8 +29,8 @@ const Artist = ({ artist, artistsArray }) => {
         <a className="artistLink" href={artist.external_urls.spotify}>
           {artist.name}'s Spotify Link
         </a>
-        <p> Total Followers: {artist.followers.total} </p>
-        <p> World Popularity: {artist.popularity}</p>
+        <p> Total Followers: {artist.followers.total.toLocaleString()}</p>
+        <p> World Popularity: {parseInt(artist.popularity).toLocaleString()}</p>
       </div>
     </div>
   );
