@@ -34,7 +34,16 @@ const Artist = ({ artist, artistsArray }) => {
           {artist.name}'s Spotify Link
         </a>
         <p> Total Followers: {artist.followers.total.toLocaleString()}</p>
-        <p> World Popularity: {parseInt(artist.popularity).toLocaleString()}</p>
+        <p>
+          {" "}
+          Popularity: {parseInt(artist.popularity).toLocaleString()}{" "}
+          <p className="popularityP">
+            {" "}
+            The popularity of the artist. The value will be between 0 and 100,
+            with 100 being the most popular. The artist's popularity is
+            calculated from the popularity of all the artist's tracks.
+          </p>
+        </p>
       </div>
     </div>
   );

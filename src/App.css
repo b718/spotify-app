@@ -85,3 +85,11 @@
   overflow: hidden;
   transition: height ease 1.0s;
 }
+
+.popularityP {
+  text-align: center;
+  max-width: 25rem;
+  margin: 0 auto;
+  margin-top: 0.2rem;
+  font-size: 0.5rem;
+}
