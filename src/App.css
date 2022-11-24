@@ -17,17 +17,13 @@
   margin-top: 0.5rem;
 }
 
-.logoutDiv button{
-  
-}
-
 .searchDiv{
   margin: 1.5rem;
 }
 
 .showingArtists {
   font-size: 1.5rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0rem;
 }
 
 .artistIMG {
@@ -63,12 +59,7 @@
   font-size: 1rem;
   text-decoration: none;
   color: black;
-}
-
-.artistLink {
-  text-decoration: none;
-  color: black;
-
+  height: 90%;
 }
 
 .artistDescDiv {
@@ -76,9 +67,9 @@
 }
 
 .artistDiv .contentDropDown{
-  height: 0px;
   overflow: hidden;
   transition: height ease 1.0s;
+  padding-top: 0.5rem;
 }
 
 .popularityP {
@@ -86,5 +77,23 @@
   max-width: 25rem;
   margin: 0 auto;
   margin-top: 0.2rem;
+  margin-bottom: 0rem;
+  padding-bottom: 0;
   font-size: 0.5rem;
+}
+
+.gridDiv {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0rem;
+  max-width: 25rem;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  margin-bottom: 0.5rem;
+}
+
+.topTrackIMG {
+  width: 25%;
+  height: 25%;
+  border-radius: 25px;
 }

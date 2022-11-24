@@ -14,6 +14,7 @@ function App() {
   const [searchKey, setSearchKey] = useState("");
   const [artists, setArtists] = useState([]);
   const [topItems, setTopItems] = useState([]);
+  const [topTracks, setTopTracks] = useState([]);
 
   //this useEffect will only run once as we do not
   //have it activate with something changing!
@@ -82,25 +83,37 @@ function App() {
     );
     console.log(data.items);
     setTopItems(data.items);
+    searchTopTracks();
+  }
+
+  //blackpink ID "41MozSoPIsD1dJM0CLPjZF"
+  async function searchTopTracks(e) {
+    const { data } = await axios.get(
+      "https://api.spotify.com/v1/artists/41MozSoPIsD1dJM0CLPjZF/top-tracks",
+      {
+        params: {
+          market: "ES",
+        },
+        headers: {
+          //fix the authorization so that the token works properly!
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(data.tracks);
+    setTopTracks(data.tracks.splice(0, 3));
   }
 
   //note that if the length of pictures does not exist, we do not access it!
   function renderArtists() {
     return artists.map((artist) => (
       <div className="showingArtists">
-        {/* {" "}
-        {artists.indexOf(artist) + 1 + "."}
-        <a
-          className="artistLink"
-          href={artist.external_urls.spotify}
-          target="blank"
-        >
-          {" "}
-          {artist.name}{" "}
-        </a>
-        <h> </h> */}
-
-        <Artist artist={artist} artistsArray={artists} />
+        <Artist
+          artist={artist}
+          artistsArray={artists}
+          token={token}
+          topTracks={topTracks}
+        />
       </div>
     ));
   }
@@ -108,22 +121,12 @@ function App() {
   function renderTopItems() {
     return topItems.map((topItem) => (
       <div className="showingTopItems">
-        {" "}
-        {topItems.indexOf(topItem) + 1 + "."}
-        <a
-          className="artistLink"
-          href={topItem.external_urls.spotify}
-          target="blank"
-        >
-          {" "}
-          {topItem.name}
-        </a>
-        <h> </h>
-        {topItem.images.length ? (
-          <img src={topItem.images[0].url} className="artistIMG"></img>
-        ) : (
-          <h> </h>
-        )}
+        <Artist
+          artist={topItem}
+          artistsArray={topItems}
+          token={token}
+          topTracks={topTracks}
+        />
       </div>
     ));
   }

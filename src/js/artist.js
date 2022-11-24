@@ -1,19 +1,41 @@
 import React from "react";
 import { useState, useRef } from "react";
+import ArtistTopTracks from "./artistTopTracks";
+import axios from "axios";
 
-const Artist = ({ artist, artistsArray }) => {
+const Artist = ({ artist, artistsArray, token, topTracks }) => {
   const [isActive, setIsActive] = useState(false);
   const [picActive, setPicActive] = useState(false);
+  const [privTopTracks, privSetTopTracks] = useState([]);
   const parentRef = useRef();
 
   function changePic() {
     setPicActive(!picActive);
   }
+
+  async function searchTopTracks(e) {
+    const { data } = await axios.get(
+      `https://api.spotify.com/v1/artists/41MozSoPIsD1dJM0CLPjZF/top-tracks`,
+      {
+        params: {
+          market: "ES",
+        },
+        headers: {
+          //fix the authorization so that the token works properly!
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("in search top tracks", data.tracks.splice(0, 3));
+    privSetTopTracks(data.tracks.splice(0, 3));
+  }
+
   return (
     <div className="artistDiv">
       {artistsArray.indexOf(artist) + 1 + "."}
       <h onClick={(e) => setIsActive(!isActive)}> {artist.name} </h>
       {artist.images.length ? (
+        // eslint-disable-next-line jsx-a11y/alt-text
         <img
           onClick={changePic}
           style={
@@ -58,6 +80,8 @@ const Artist = ({ artist, artistsArray }) => {
             calculated from the popularity of all the artist's tracks.
           </p>
         </p>
+
+        <ArtistTopTracks topTracks={topTracks} token={token} />
       </div>
     </div>
   );
