@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
 
 const ArtistTopTracks = ({ topTracks, token }) => {
   const [picActive, setPicActive] = useState(false);
@@ -8,21 +7,24 @@ const ArtistTopTracks = ({ topTracks, token }) => {
   function changePic() {
     setPicActive(!picActive);
   }
+
   function renderTopTracks() {
     console.log(topTracks);
     return topTracks.map((tp) => (
       <div className="">
-        {tp.name}
-        <div>
+        <div className="titleTopTracks">Title: {tp.name}</div>
+
+        <div className="albumTopTracks">
           <a
             href={tp.album.external_urls.spotify}
             target="blank"
             className="topTrackAlbumUrl"
           >
             {" "}
-            {tp.album.name}
+            Album: {tp.album.name}
           </a>
-          <h> </h>
+        </div>
+        <div>
           {tp.album.images.length ? (
             // eslint-disable-next-line jsx-a11y/alt-text
             <img

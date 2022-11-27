@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import ArtistTopTracks from "./artistTopTracks";
 import axios from "axios";
@@ -15,7 +15,7 @@ const Artist = ({ artist, artistsArray, token, topTracks }) => {
 
   async function searchTopTracks(e) {
     const { data } = await axios.get(
-      `https://api.spotify.com/v1/artists/41MozSoPIsD1dJM0CLPjZF/top-tracks`,
+      `https://api.spotify.com/v1/artists/${artist.id}/top-tracks`,
       {
         params: {
           market: "ES",
@@ -26,9 +26,16 @@ const Artist = ({ artist, artistsArray, token, topTracks }) => {
         },
       }
     );
-    console.log("in search top tracks", data.tracks.splice(0, 3));
+    // console.log(artist.name, artist.id);
+    // console.log("top songs", data.tracks);
+    // console.log("in search top tracks", data.tracks.splice(0, 3));
     privSetTopTracks(data.tracks.splice(0, 3));
   }
+
+  useEffect(() => {
+    console.log("reaching the effect");
+    searchTopTracks();
+  }, []);
 
   return (
     <div className="artistDiv">
@@ -81,7 +88,7 @@ const Artist = ({ artist, artistsArray, token, topTracks }) => {
           </p>
         </p>
 
-        <ArtistTopTracks topTracks={topTracks} token={token} />
+        <ArtistTopTracks topTracks={privTopTracks} token={token} />
       </div>
     </div>
   );

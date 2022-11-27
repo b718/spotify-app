@@ -90,6 +90,7 @@
   display: grid;
   grid-template-columns: 33% 33% 33%;
   margin-bottom: 0.5rem;
+  grid-gap: 0.3rem;
 }
 
 .topTrackIMG {
@@ -101,4 +102,13 @@
 .topTrackAlbumUrl{
   text-decoration: none;
   color: black;
+  padding-bottom: 0.2rem;
+}
+
+.titleTopTracks{
+  padding-bottom: 0.2rem;
+}
+
+.albumTopTracks{
+  padding-bottom: 0.4rem;
 }
