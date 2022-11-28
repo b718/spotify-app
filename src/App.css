@@ -109,6 +109,10 @@
   padding-bottom: 0.2rem;
 }
 
+.titleTopTracks:hover {
+  color: gray;
+}
+
 .albumTopTracks{
   padding-bottom: 0.4rem;
 }
