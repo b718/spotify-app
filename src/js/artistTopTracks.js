@@ -3,17 +3,29 @@ import { useState } from "react";
 
 const ArtistTopTracks = ({ topTracks, token }) => {
   const [picActive, setPicActive] = useState(false);
+  const [audioState, setAudioState] = useState(false);
 
   function changePic() {
     setPicActive(!picActive);
   }
-
+  function playAudio(tp) {
+    var currAudio = new Audio(tp.preview_url);
+    setAudioState(!audioState);
+    if (audioState) {
+      currAudio.play();
+    } else {
+      currAudio.pause();
+      currAudio.currentTime = 0;
+      currAudio.play();
+    }
+  }
   function renderTopTracks() {
     console.log(topTracks);
     return topTracks.map((tp) => (
       <div className="">
-        <div className="titleTopTracks">Title: {tp.name}</div>
-
+        <div className="titleTopTracks" onClick={(event) => playAudio(tp)}>
+          Title: {tp.name}
+        </div>
         <div className="albumTopTracks">
           <a
             href={tp.album.external_urls.spotify}

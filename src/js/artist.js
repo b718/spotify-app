@@ -88,6 +88,8 @@ const Artist = ({ artist, artistsArray, token, topTracks }) => {
           </p>
         </p>
 
+        <p>Genres: {artist.genres.join(", ")}</p>
+
         <ArtistTopTracks topTracks={privTopTracks} token={token} />
       </div>
     </div>
