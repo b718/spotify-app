@@ -87,7 +87,7 @@ function App() {
     );
     console.log(data.items);
     setTopItems(data.items);
-    searchTopTracks();
+    //searchTopTracks();
   }
 
   //blackpink ID "41MozSoPIsD1dJM0CLPjZF"
@@ -117,6 +117,7 @@ function App() {
           artistsArray={artists}
           token={token}
           topTracks={topTracks}
+          range={currTimeRange}
         />
       </div>
     ));
@@ -130,6 +131,7 @@ function App() {
           artistsArray={topItems}
           token={token}
           topTracks={topTracks}
+          range={currTimeRange}
         />
       </div>
     ));

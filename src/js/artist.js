@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import ArtistTopTracks from "./artistTopTracks";
 import axios from "axios";
 
-const Artist = ({ artist, artistsArray, token, topTracks }) => {
+const Artist = ({ artist, artistsArray, token, range }) => {
   const [isActive, setIsActive] = useState(false);
   const [picActive, setPicActive] = useState(false);
   const [privTopTracks, privSetTopTracks] = useState([]);
@@ -30,12 +30,13 @@ const Artist = ({ artist, artistsArray, token, topTracks }) => {
     // console.log("top songs", data.tracks);
     // console.log("in search top tracks", data.tracks.splice(0, 3));
     privSetTopTracks(data.tracks.splice(0, 3));
+    //console.log(privTopTracks, artist.id);
   }
 
   useEffect(() => {
     console.log("reaching the effect");
     searchTopTracks();
-  }, []);
+  }, [range]);
 
   return (
     <div className="artistDiv">
