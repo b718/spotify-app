@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 import Artist from "./js/artist.js";
+import ParticlesBackground from "./components/ParticlesBackground";
 
 function App() {
   const clientID = "8749d4d40a72490aac3a512871158c4a";
@@ -15,6 +16,7 @@ function App() {
   const [artists, setArtists] = useState([]);
   const [topItems, setTopItems] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
+  const [currTimeRange, setTimeRange] = useState("");
 
   //this useEffect will only run once as we do not
   //have it activate with something changing!
@@ -30,7 +32,7 @@ function App() {
         .find((elem) => elem.startsWith("access_token"))
         .split("=")[1];
 
-      console.log(token);
+      //console.log(token);
 
       //this line of code removes the hash from the web browser!
       window.location.hash = "";
@@ -45,6 +47,7 @@ function App() {
   function logoutFunction() {
     //this removes the token we have saved once we logout!
     setToken("");
+    setTimeRange("");
     window.localStorage.removeItem("token");
   }
 
@@ -67,11 +70,12 @@ function App() {
 
   async function searchTopItems(e) {
     e.preventDefault();
+
     const { data } = await axios.get(
       "https://api.spotify.com/v1/me/top/artists",
       {
         params: {
-          time_range: "medium_term",
+          time_range: `${currTimeRange}`,
           limit: 30,
           offset: 0,
         },
@@ -131,8 +135,31 @@ function App() {
     ));
   }
 
+  function setDaily() {
+    setTimeRange("short_term");
+  }
+  function setMonthly() {
+    setTimeRange("medium_term");
+  }
+  function setYearly() {
+    setTimeRange("long_term");
+  }
+
+  function result() {
+    if (currTimeRange.length == "short_term".length) {
+      return "Daily";
+    } else if (currTimeRange.length == "medium_term".length) {
+      return "Monthly";
+    } else if (currTimeRange.length == "long_term".length) {
+      return "Yearly";
+    } else {
+      return "";
+    }
+  }
   return (
     <div className="App">
+      <ParticlesBackground />
+
       <h className="spotifyHeader">Spotify API Testing</h>
 
       {!token ? (
@@ -149,7 +176,7 @@ function App() {
         </div>
       )}
 
-      {token ? (
+      {/*token ? (
         <div className="searchDiv">
           <h className="searhForHeader"> Search For Your Artists </h>
           <form onSubmit={searchArtists}>
@@ -163,14 +190,20 @@ function App() {
         </div>
       ) : (
         <h> </h>
-      )}
+      )*/}
 
-      {token ? <div> {renderArtists()} </div> : <h></h>}
+      {/*token ? <div> {renderArtists()} </div> : <h></h>*/}
 
       {token ? (
         <div className="topUserItems">
           {" "}
-          <h>Display Top Artists</h>{" "}
+          <h>Display Top Artists</h>
+          <div className="buttonDiv">
+            <button onClick={setDaily}>Daily</button>
+            <button onClick={setMonthly}>Monthly</button>
+            <button onClick={setYearly}>Yearly</button>
+          </div>
+          <h>{result()}</h>
           <div>
             <button onClick={searchTopItems}> Find Top Aritsts</button>
           </div>

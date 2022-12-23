@@ -39,23 +39,31 @@ const Artist = ({ artist, artistsArray, token, topTracks }) => {
 
   return (
     <div className="artistDiv">
-      {artistsArray.indexOf(artist) + 1 + "."}
-      <h onClick={(e) => setIsActive(!isActive)}> {artist.name} </h>
-      {artist.images.length ? (
-        // eslint-disable-next-line jsx-a11y/alt-text
-        <img
-          onClick={changePic}
-          style={
-            !picActive
-              ? { width: "3%", height: "3%" }
-              : { width: "30%", height: "30%" }
-          }
-          src={artist.images[0].url}
-          className="artistIMG"
-        ></img>
-      ) : (
-        <h> </h>
-      )}
+      <div className="picNName">
+        {artist.images.length ? (
+          // eslint-disable-next-line jsx-a11y/alt-text
+          <a href={artist.images[0].url} target="_blank">
+            <img
+              onClick={changePic}
+              /*style={
+                !picActive
+                  ? { width: "4em", height: "4em" }
+                  : { width: "30%", height: "30%" }
+              }*/
+              src={artist.images[0].url}
+              className="artistIMG"
+            ></img>
+          </a>
+        ) : (
+          <h> </h>
+        )}
+        <div>
+          <h onClick={(e) => setIsActive(!isActive)}>
+            {artistsArray.indexOf(artist) + 1 + ". "}
+            {artist.name}
+          </h>
+        </div>
+      </div>
       <div
         className="contentDropDown"
         ref={parentRef}

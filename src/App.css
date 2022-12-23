@@ -4,8 +4,9 @@
 }
 
 .spotifyHeader {
-  font-size: 30px;
+  font-size: 3rem;
   padding-bottom: 0.5rem;
+  color: whitesmoke;
 }
 
 .loginDiv {
@@ -27,9 +28,13 @@
 }
 
 .artistIMG {
-  width: 3%;
+  /*width: 3%;
   height: 3%;
-  border-radius: 25px;
+  border-radius: 25px;*/
+  width: 4em;
+  height: 4em;
+  border-radius: 3px;
+  margin-right: 1em;
 }
 
 .showingTopItems {
@@ -37,8 +42,17 @@
 }
 
 .topUserItems {
-  padding-top: 2rem;
+  padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.topUserItems h{
+  font-size: 2rem;
+  color: whitesmoke;
+}
+.topUserItems button{
+  margin-top: 0.4rem;
+  margin-bottom: 0rem;
 }
 
 .findTopArtistsHeader {
@@ -50,6 +64,10 @@
   color: black;
 }
 
+.artistLink:hover{
+  color: whitesmoke;
+}
+
 .topItemLink {
   text-decoration: none;
   color: black;
@@ -59,7 +77,25 @@
   font-size: 1rem;
   text-decoration: none;
   color: black;
-  height: 90%;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  max-width: 25rem;
+  background-color: rgb(31 205 92);
+  border-radius: 1.5rem;
+}
+
+.picNName {
+  display: flex;
+}
+
+.picNName div{
+  margin: 0 auto;
+  margin-top: 1.5rem;
+  transform: translateX(-2em);
+}
+
+.picNName h:hover{
+  color: whitesmoke;
 }
 
 .artistDescDiv {
@@ -105,14 +141,19 @@
   padding-bottom: 0.2rem;
 }
 
+.topTrackAlbumUrl:hover{
+  color: whitesmoke;
+}
+
 .titleTopTracks{
   padding-bottom: 0.2rem;
 }
 
 .titleTopTracks:hover {
-  color: gray;
+  color: whitesmoke;
 }
 
 .albumTopTracks{
   padding-bottom: 0.4rem;
 }
+
