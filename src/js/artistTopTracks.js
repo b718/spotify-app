@@ -38,7 +38,7 @@ const ArtistTopTracks = ({ topTracks, token }) => {
   }
 
   function renderTopTracks() {
-    console.log(topTracks);
+    console.log("toptracks", topTracks);
     return topTracks.map((tp) => (
       <div className="topTracksDiv">
         <div className="titleTopTracks" onClick={(event) => playAudio(tp)}>

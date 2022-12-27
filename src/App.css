@@ -80,7 +80,7 @@
   color: black;
   margin: 0 auto;
   margin-top: 1rem;
-  max-width: 25rem;
+  max-width: 30rem;
   background-color: rgb(31 205 92);
   border-radius: 0rem;
 }
@@ -158,3 +158,6 @@
   padding-bottom: 0.4rem;
 }
 
+.discL{
+  font-size: 0.8rem;
+}

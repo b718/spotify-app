@@ -9,7 +9,9 @@ const Artist = ({ artist, artistsArray, token, range }) => {
   const [isActive, setIsActive] = useState(false);
   const [picActive, setPicActive] = useState(false);
   const [privTopTracks, privSetTopTracks] = useState([]);
-  const [track1, setTrack1] = useState([]);
+  const [track1, setTrack1] = useState(null);
+  const [track2, setTrack2] = useState(null);
+  const [track3, setTrack3] = useState(null);
   const [testSet, setTestSest] = useState("hi");
 
   const parentRef = useRef();
@@ -17,8 +19,6 @@ const Artist = ({ artist, artistsArray, token, range }) => {
   function changePic() {
     setPicActive(!picActive);
   }
-
-  //        <ArtistTopTracks topTracks={privTopTracks} token={token} />
 
   async function searchTopTracks(e) {
     const { data } = await axios.get(
@@ -35,17 +35,19 @@ const Artist = ({ artist, artistsArray, token, range }) => {
     );
     // console.log(artist.name, artist.id);
     // console.log("top songs", data.tracks);
-    console.log("in search top tracks", data.tracks.splice(0, 3));
-    privSetTopTracks(data.tracks.splice(0, 3));
-    console.log("in search 1st track, ", data.tracks.splice(0, 1));
-    setTrack1(data.tracks.splice(0, 1));
+    //console.log("in search top tracks", data.tracks.splice(0, 3));
+    //privSetTopTracks(data.tracks.splice(0, 3));
+
+    setTrack1(data.tracks[0]);
+    setTrack2(data.tracks[1]);
+    setTrack3(data.tracks[2]);
 
     //console.log(privTopTracks, artist.id);
     //it seems that usestate is not instant
   }
 
   useEffect(() => {
-    console.log("reaching the effect");
+    //console.log("reaching the effect");
     searchTopTracks();
   }, [range]);
 
@@ -109,17 +111,28 @@ const Artist = ({ artist, artistsArray, token, range }) => {
         </p>
 
         <p>Genres: {artist.genres.join(", ")}</p>
+        <p className="discL">
+          Note: If you want to play the track, click the track first!
+        </p>
+
+        {
+          //<ArtistTopTracks topTracks={track1} token={token} />
+        }
 
         <div className="gridDiv">
           {/*<ArtistTopTrack topTrack={privTopTracks[0]} />
           <ArtistTopTrack topTrack={privTopTracks[1]} />
           <ArtistTopTrack topTrack={privTopTracks[2]} />
           <ArtistTopTracks topTracks={privTopTracks} token={token} />
+                    
+          
+
         */}
 
           <ArtistTopTrack topTrack={track1} />
+          <ArtistTopTrack topTrack={track2} />
+          <ArtistTopTrack topTrack={track3} />
         </div>
-        <ArtistTopTracks topTracks={privTopTracks} token={token} />
       </div>
     </div>
   );
