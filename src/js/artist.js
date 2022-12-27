@@ -1,17 +1,24 @@
 import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import ArtistTopTracks from "./artistTopTracks";
+import ArtistTopTrack from "./artistTopTrack";
+
 import axios from "axios";
 
 const Artist = ({ artist, artistsArray, token, range }) => {
   const [isActive, setIsActive] = useState(false);
   const [picActive, setPicActive] = useState(false);
   const [privTopTracks, privSetTopTracks] = useState([]);
+  const [track1, setTrack1] = useState([]);
+  const [testSet, setTestSest] = useState("hi");
+
   const parentRef = useRef();
 
   function changePic() {
     setPicActive(!picActive);
   }
+
+  //        <ArtistTopTracks topTracks={privTopTracks} token={token} />
 
   async function searchTopTracks(e) {
     const { data } = await axios.get(
@@ -28,9 +35,13 @@ const Artist = ({ artist, artistsArray, token, range }) => {
     );
     // console.log(artist.name, artist.id);
     // console.log("top songs", data.tracks);
-    // console.log("in search top tracks", data.tracks.splice(0, 3));
+    console.log("in search top tracks", data.tracks.splice(0, 3));
     privSetTopTracks(data.tracks.splice(0, 3));
+    console.log("in search 1st track, ", data.tracks.splice(0, 1));
+    setTrack1(data.tracks.splice(0, 1));
+
     //console.log(privTopTracks, artist.id);
+    //it seems that usestate is not instant
   }
 
   useEffect(() => {
@@ -99,6 +110,15 @@ const Artist = ({ artist, artistsArray, token, range }) => {
 
         <p>Genres: {artist.genres.join(", ")}</p>
 
+        <div className="gridDiv">
+          {/*<ArtistTopTrack topTrack={privTopTracks[0]} />
+          <ArtistTopTrack topTrack={privTopTracks[1]} />
+          <ArtistTopTrack topTrack={privTopTracks[2]} />
+          <ArtistTopTracks topTracks={privTopTracks} token={token} />
+        */}
+
+          <ArtistTopTrack topTrack={track1} />
+        </div>
         <ArtistTopTracks topTracks={privTopTracks} token={token} />
       </div>
     </div>

@@ -77,7 +77,6 @@ const ArtistTopTracks = ({ topTracks, token }) => {
 
   return (
     <div>
-      {" "}
       {token ? <div className="gridDiv"> {renderTopTracks()} </div> : <h></h>}
     </div>
   );
