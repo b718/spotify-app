@@ -12,7 +12,6 @@ const Artist = ({ artist, artistsArray, token, range }) => {
   const [track1, setTrack1] = useState(null);
   const [track2, setTrack2] = useState(null);
   const [track3, setTrack3] = useState(null);
-  const [testSet, setTestSest] = useState("hi");
 
   const parentRef = useRef();
 
@@ -47,7 +46,7 @@ const Artist = ({ artist, artistsArray, token, range }) => {
   }
 
   useEffect(() => {
-    //console.log("reaching the effect");
+    console.log("reaching the effect");
     searchTopTracks();
   }, [range]);
 
