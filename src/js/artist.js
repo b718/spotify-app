@@ -82,10 +82,10 @@ const Artist = ({ artist, artistsArray, token, range }) => {
         style={
           isActive
             ? {
-                height: parentRef.current.scrollHeight + "px",
+                "max-height": "80rem",
               }
             : {
-                height: "0px",
+                "max-height": "0px",
               }
         }
       >

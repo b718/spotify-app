@@ -105,7 +105,7 @@
 
 .artistDiv .contentDropDown{
   overflow: hidden;
-  transition: height ease 1.0s;
+  transition: max-height ease 1.0s;
   padding-top: 0.5rem;
 }
 
