@@ -17,6 +17,7 @@ function App() {
   const [topItems, setTopItems] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
   const [currTimeRange, setTimeRange] = useState("");
+  const [currCount, setCurrCount] = useState(0);
 
   //this useEffect will only run once as we do not
   //have it activate with something changing!
@@ -123,6 +124,10 @@ function App() {
     ));
   }
 
+  function addCount() {
+    setCurrCount(currCount + 1);
+  }
+
   function renderTopItems() {
     return topItems.map((topItem) => (
       <div className="showingTopItems">
@@ -131,7 +136,7 @@ function App() {
           artistsArray={topItems}
           token={token}
           topTracks={topTracks}
-          range={currTimeRange}
+          range={currCount}
         />
       </div>
     ));
@@ -158,6 +163,12 @@ function App() {
       return "";
     }
   }
+
+  function combine(e) {
+    addCount();
+    searchTopItems(e);
+  }
+
   return (
     <div className="App">
       <ParticlesBackground />
@@ -207,7 +218,7 @@ function App() {
           </div>
           <h>{result()}</h>
           <div>
-            <button onClick={searchTopItems}> Find Top Aritsts</button>
+            <button onClick={combine}> Find Top Aritsts</button>
           </div>
         </div>
       ) : (

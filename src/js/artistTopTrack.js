@@ -23,6 +23,8 @@ const ArtistTopTrack = ({ topTrack }) => {
     //console.log("done");
   }
 
+  function nothing() {}
+
   return (
     <div className="topTracksDiv">
       {
@@ -32,7 +34,10 @@ const ArtistTopTrack = ({ topTrack }) => {
       {topTrack ? (
         <div>
           {" "}
-          <div className="titleTopTracks" onClick={setAudio}>
+          <div
+            className="titleTopTracks"
+            onClick={audioState ? setAudio : nothing}
+          >
             Title: {topTrack.name}
           </div>
           {audioState ? (

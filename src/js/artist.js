@@ -12,7 +12,6 @@ const Artist = ({ artist, artistsArray, token, range }) => {
   const [track1, setTrack1] = useState(null);
   const [track2, setTrack2] = useState(null);
   const [track3, setTrack3] = useState(null);
-
   const parentRef = useRef();
 
   function changePic() {
@@ -40,15 +39,15 @@ const Artist = ({ artist, artistsArray, token, range }) => {
     setTrack1(data.tracks[0]);
     setTrack2(data.tracks[1]);
     setTrack3(data.tracks[2]);
-
-    //console.log(privTopTracks, artist.id);
     //it seems that usestate is not instant
   }
 
   useEffect(() => {
     console.log("reaching the effect");
+    console.log("this is the range ", range);
+    console.log(artist.name);
     searchTopTracks();
-  }, [range]);
+  }, [isActive]);
 
   return (
     <div className="artistDiv">
@@ -123,9 +122,6 @@ const Artist = ({ artist, artistsArray, token, range }) => {
           <ArtistTopTrack topTrack={privTopTracks[1]} />
           <ArtistTopTrack topTrack={privTopTracks[2]} />
           <ArtistTopTracks topTracks={privTopTracks} token={token} />
-                    
-          
-
         */}
 
           <ArtistTopTrack topTrack={track1} />
