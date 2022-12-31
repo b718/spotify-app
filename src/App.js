@@ -61,7 +61,7 @@ function App() {
       params: {
         q: searchKey,
         type: "artist",
-        limit: 30,
+        limit: 5,
       },
     });
 
@@ -189,7 +189,7 @@ function App() {
         </div>
       )}
 
-      {/*token ? (
+      {token ? (
         <div className="searchDiv">
           <h className="searhForHeader"> Search For Your Artists </h>
           <form onSubmit={searchArtists}>
@@ -203,9 +203,9 @@ function App() {
         </div>
       ) : (
         <h> </h>
-      )*/}
+      )}
 
-      {/*token ? <div> {renderArtists()} </div> : <h></h>*/}
+      {token ? <div> {renderArtists()} </div> : <h></h>}
 
       {token ? (
         <div className="topUserItems">

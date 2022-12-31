@@ -181,3 +181,8 @@
 .asButton:hover{
   color: whitesmoke;
 }
+ 
+.searhForHeader{
+  color: whitesmoke;
+  margin-bottom: 0.8rem;
+}
