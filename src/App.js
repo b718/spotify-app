@@ -61,7 +61,7 @@ function App() {
       params: {
         q: searchKey,
         type: "artist",
-        limit: 5,
+        limit: 1,
       },
     });
 
