@@ -18,6 +18,8 @@ function App() {
   const [topTracks, setTopTracks] = useState([]);
   const [currTimeRange, setTimeRange] = useState("");
   const [currCount, setCurrCount] = useState(0);
+  const [search, setSearch] = useState(false);
+  const [recap, setRecap] = useState(false);
 
   //this useEffect will only run once as we do not
   //have it activate with something changing!
@@ -189,23 +191,10 @@ function App() {
         </div>
       )}
 
-      {token ? (
-        <div className="searchDiv">
-          <h className="searhForHeader"> Search For Your Artists </h>
-          <form onSubmit={searchArtists}>
-            <input
-              type="text"
-              onChange={(e) => setSearchKey(e.target.value)}
-            ></input>
-
-            <button type="submit"> Start </button>
-          </form>
-        </div>
-      ) : (
-        <h> </h>
-      )}
-
-      {token ? <div> {renderArtists()} </div> : <h></h>}
+      <div className="btnSide">
+        <button>Search</button>
+        <button>Recap</button>
+      </div>
 
       {token ? (
         <div className="topUserItems">
@@ -226,6 +215,24 @@ function App() {
       )}
 
       {token ? <div> {renderTopItems()} </div> : <h></h>}
+
+      {token ? (
+        <div className="searchDiv">
+          <h className="searhForHeader"> Search For Your Artists </h>
+          <form onSubmit={searchArtists}>
+            <input
+              type="text"
+              onChange={(e) => setSearchKey(e.target.value)}
+            ></input>
+
+            <button type="submit"> Start </button>
+          </form>
+        </div>
+      ) : (
+        <h> </h>
+      )}
+
+      {token ? <div> {renderArtists()} </div> : <h></h>}
     </div>
   );
 }
