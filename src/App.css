@@ -161,3 +161,23 @@
 .discL{
   font-size: 0.8rem;
 }
+
+.audioPlayer{
+  width: 3rem;
+  height: 1rem;
+}
+
+.asButton{
+  background-color: #4CAF50; 
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.asButton:hover{
+  color: whitesmoke;
+}

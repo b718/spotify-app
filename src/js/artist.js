@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import ArtistTopTracks from "./artistTopTracks";
@@ -9,6 +10,7 @@ const Artist = ({ artist, artistsArray, token, range }) => {
   const [isActive, setIsActive] = useState(false);
   const [picActive, setPicActive] = useState(false);
   const [privTopTracks, privSetTopTracks] = useState([]);
+  const [renderValue, setRenderValue] = useState("");
   const [track1, setTrack1] = useState(null);
   const [track2, setTrack2] = useState(null);
   const [track3, setTrack3] = useState(null);
@@ -47,6 +49,7 @@ const Artist = ({ artist, artistsArray, token, range }) => {
     console.log("this is the range ", range);
     console.log(artist.name);
     searchTopTracks();
+    setRenderValue("");
   }, [isActive]);
 
   return (
@@ -124,9 +127,9 @@ const Artist = ({ artist, artistsArray, token, range }) => {
           <ArtistTopTracks topTracks={privTopTracks} token={token} />
         */}
 
-          <ArtistTopTrack topTrack={track1} />
-          <ArtistTopTrack topTrack={track2} />
-          <ArtistTopTrack topTrack={track3} />
+          <ArtistTopTrack topTrack={track1} renderValue={renderValue} />
+          <ArtistTopTrack topTrack={track2} renderValue={renderValue} />
+          <ArtistTopTrack topTrack={track3} renderValue={renderValue} />
         </div>
       </div>
     </div>

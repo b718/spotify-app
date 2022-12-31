@@ -1,10 +1,12 @@
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import { useState, useEffect } from "react";
 
-const ArtistTopTrack = ({ topTrack }) => {
+const ArtistTopTrack = ({ topTrack, renderValue }) => {
   const [audioState, setAudioState] = useState(true);
   const [currSong, setCurrSong] = useState();
-  const [currSongName, setCurrSongName] = useState("");
+  const [currSongName, setCurrSongName] = useState(renderValue);
 
   function playAudio() {
     if (audioState) {
@@ -16,10 +18,30 @@ const ArtistTopTrack = ({ topTrack }) => {
     }
   }
 
+  /*useEffect(() => {
+    console.log("useEffect", renderValue);
+    setCurrSongName(renderValue);
+  }, [currSongName]);*/
+
+  /*{audioState ? (
+            <button onClick={playAudio}>play</button>
+          ) : (
+            <button onClick={playAudio}>pause</button>
+          )}
+          */
+
+  /*   {currSongName ? (
+            <audio className="audioPlayer" controls>
+              <source src={currSongName} />
+            </audio>
+          ) : (
+            <h></h>
+          )} */
   function setAudio() {
     var currAudio = new Audio(topTrack.preview_url);
     setCurrSong(currAudio);
-    setCurrSongName(topTrack.name);
+    //console.log(topTrack.preview_url);
+    setCurrSongName(topTrack.preview_url);
     //console.log("done");
   }
 
@@ -41,9 +63,13 @@ const ArtistTopTrack = ({ topTrack }) => {
             Title: {topTrack.name}
           </div>
           {audioState ? (
-            <button onClick={playAudio}>play</button>
+            <button className="asButton" onClick={playAudio}>
+              Play
+            </button>
           ) : (
-            <button onClick={playAudio}>pause</button>
+            <button className="asButton" onClick={playAudio}>
+              Pause
+            </button>
           )}
           <div className="albumTopTracks">
             <a
