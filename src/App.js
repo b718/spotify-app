@@ -165,7 +165,7 @@ function App() {
           <a
             href={`${authendpointURL}?client_id=${clientID}&redirect_uri=${redirectURL}&response_type=${responseType}&scope=${scopeType}`}
           >
-            Login To Spotify
+            <button>Login To Spotify</button>
           </a>
         </div>
       ) : (
@@ -196,7 +196,7 @@ function App() {
       )}
 
       <div className="currTypeDiv"> {currType}</div>
-      {token && currType.length == 6 ? (
+      {token && currType.length == 5 ? (
         <div>
           <div className="topUserItems">
             {" "}
@@ -214,7 +214,7 @@ function App() {
 
           <div> {renderTopItems()} </div>
         </div>
-      ) : token && currType.length == 5 ? (
+      ) : token && currType.length == 6 ? (
         <div>
           <div className="searchDiv">
             <h className="searhForHeader"> Search For Your Artists </h>
