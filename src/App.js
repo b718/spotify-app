@@ -18,8 +18,7 @@ function App() {
   const [topTracks, setTopTracks] = useState([]);
   const [currTimeRange, setTimeRange] = useState("");
   const [currCount, setCurrCount] = useState(0);
-  const [search, setSearch] = useState(false);
-  const [recap, setRecap] = useState(false);
+  const [currType, setcurrType] = useState("");
 
   //this useEffect will only run once as we do not
   //have it activate with something changing!
@@ -51,6 +50,7 @@ function App() {
     //this removes the token we have saved once we logout!
     setToken("");
     setTimeRange("");
+    setcurrType("");
     window.localStorage.removeItem("token");
   }
 
@@ -63,12 +63,13 @@ function App() {
       params: {
         q: searchKey,
         type: "artist",
-        limit: 1,
+        limit: 15,
+        offset: 0,
       },
     });
 
     console.log(data);
-    setArtists(data.artists.items);
+    setArtists(data.artists.items.splice(0, 5));
   }
 
   async function searchTopItems(e) {
@@ -91,24 +92,6 @@ function App() {
     console.log(data.items);
     setTopItems(data.items);
     //searchTopTracks();
-  }
-
-  //blackpink ID "41MozSoPIsD1dJM0CLPjZF"
-  async function searchTopTracks(e) {
-    const { data } = await axios.get(
-      "https://api.spotify.com/v1/artists/41MozSoPIsD1dJM0CLPjZF/top-tracks",
-      {
-        params: {
-          market: "ES",
-        },
-        headers: {
-          //fix the authorization so that the token works properly!
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    console.log(data.tracks);
-    setTopTracks(data.tracks.splice(0, 3));
   }
 
   //note that if the length of pictures does not exist, we do not access it!
@@ -191,12 +174,67 @@ function App() {
         </div>
       )}
 
-      <div className="btnSide">
-        <button>Search</button>
-        <button>Recap</button>
-      </div>
-
       {token ? (
+        <div className="btnSide">
+          <button
+            onClick={() => {
+              setcurrType("Search");
+            }}
+          >
+            Search
+          </button>
+          <button
+            onClick={() => {
+              setcurrType("Recap");
+            }}
+          >
+            Recap
+          </button>
+        </div>
+      ) : (
+        <h></h>
+      )}
+
+      <div className="currTypeDiv"> {currType}</div>
+      {token && currType.length == 6 ? (
+        <div>
+          <div className="topUserItems">
+            {" "}
+            <h>Display Top Artists</h>
+            <div className="buttonDiv">
+              <button onClick={setDaily}>Daily</button>
+              <button onClick={setMonthly}>Monthly</button>
+              <button onClick={setYearly}>Yearly</button>
+            </div>
+            <h>{result()}</h>
+            <div>
+              <button onClick={combine}> Find Top Aritsts</button>
+            </div>
+          </div>
+
+          <div> {renderTopItems()} </div>
+        </div>
+      ) : token && currType.length == 5 ? (
+        <div>
+          <div className="searchDiv">
+            <h className="searhForHeader"> Search For Your Artists </h>
+            <form onSubmit={searchArtists}>
+              <input
+                type="text"
+                onChange={(e) => setSearchKey(e.target.value)}
+              ></input>
+
+              <button type="submit"> Start </button>
+            </form>
+          </div>
+
+          <div> {renderArtists()} </div>
+        </div>
+      ) : (
+        <h></h>
+      )}
+
+      {/*token ? (
         <div className="topUserItems">
           {" "}
           <h>Display Top Artists</h>
@@ -212,11 +250,11 @@ function App() {
         </div>
       ) : (
         <h> </h>
-      )}
+      )*/}
 
-      {token ? <div> {renderTopItems()} </div> : <h></h>}
+      {/*token ? <div> {renderTopItems()} </div> : <h></h>*/}
 
-      {token ? (
+      {/*token ? (
         <div className="searchDiv">
           <h className="searhForHeader"> Search For Your Artists </h>
           <form onSubmit={searchArtists}>
@@ -230,9 +268,9 @@ function App() {
         </div>
       ) : (
         <h> </h>
-      )}
+      )*/}
 
-      {token ? <div> {renderArtists()} </div> : <h></h>}
+      {/*token ? <div> {renderArtists()} </div> : <h></h>*/}
     </div>
   );
 }
