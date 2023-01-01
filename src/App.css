@@ -18,6 +18,22 @@
   margin-top: 0.5rem;
 }
 
+.logoutDiv button{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: black;
+  padding: 11px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border: 1px solid green;
+}
+
+.logoutDiv button:hover{
+  color:whitesmoke
+}
+
 .searchDiv{
   margin: 1.5rem;
 }
@@ -189,4 +205,57 @@
 
 .currTypeDiv{
   color: whitesmoke;
+  margin-top: 1.0rem;
+  font-size: 1.5rem;
+  text-decoration: underline;
+}
+
+.buttonDiv button{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: 1px solid green;
+}
+
+.buttonDiv button:hover{
+  color: whitesmoke;
+}
+
+.findTopArtistsBTN button{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: 1px solid green;
+}
+
+.findTopArtistsBTN button:hover{
+  color: whitesmoke;
+}
+
+.btnSide button{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: 1px solid green;
+
+}
+
+.btnSide button:hover{
+  color: whitesmoke;
+
 }

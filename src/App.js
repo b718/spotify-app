@@ -207,8 +207,8 @@ function App() {
               <button onClick={setYearly}>Yearly</button>
             </div>
             <h>{result()}</h>
-            <div>
-              <button onClick={combine}> Find Top Aritsts</button>
+            <div className="findTopArtistsBTN">
+              <button onClick={combine}> Find Top Artists</button>
             </div>
           </div>
 
