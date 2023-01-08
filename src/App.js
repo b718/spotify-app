@@ -10,6 +10,7 @@ function App() {
   const authendpointURL = "https://accounts.spotify.com/authorize";
   const responseType = "token";
   const scopeType = "user-top-read";
+  const url = `${authendpointURL}?client_id=${clientID}&response_type=${responseType}&redirect_uri=${redirectURL}&scope=${scopeType}`;
 
   const [token, setToken] = useState("");
   const [searchKey, setSearchKey] = useState("");
@@ -45,6 +46,7 @@ function App() {
     }
 
     setToken(token);
+    console.log("token", token);
   }, []);
 
   function logoutFunction() {
@@ -163,9 +165,7 @@ function App() {
 
       {!token ? (
         <div className="loginDiv">
-          <a
-            href={`${authendpointURL}?client_id=${clientID}&redirect_uri=${redirectURL}&response_type=${responseType}&scope=${scopeType}`}
-          >
+          <a href={url}>
             <button>Login To Spotify</button>
           </a>
         </div>
