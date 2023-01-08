@@ -6,6 +6,7 @@ import ParticlesBackground from "./components/ParticlesBackground";
 
 function App() {
   const clientID = "8749d4d40a72490aac3a512871158c4a";
+  const clientSID = "545f835255d6433d9941a15869f83b02";
   const redirectURL = "http://localhost:3000";
   const authendpointURL = "https://accounts.spotify.com/authorize";
   const responseType = "token";
@@ -47,6 +48,23 @@ function App() {
 
     setToken(token);
     console.log("token", token);
+    /*var authParameters = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body:
+        "grant_type=client_credentials&client_id=" +
+        clientID +
+        "&client_secret=" +
+        clientSID +
+        "&scope" +
+        scopeType,
+    };
+
+    fetch("https://accounts.spotify.com/api/token", authParameters)
+      .then((result) => result.json())
+      .then((data) => setToken(data.access_token));*/
   }, []);
 
   function logoutFunction() {
