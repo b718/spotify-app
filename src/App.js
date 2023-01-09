@@ -3,17 +3,21 @@ import "./App.css";
 import axios from "axios";
 import Artist from "./js/artist.js";
 import ParticlesBackground from "./components/ParticlesBackground";
+import { Buffer } from "buffer";
 
 function App() {
-  const clientID = "8749d4d40a72490aac3a512871158c4a";
-  const clientSID = "545f835255d6433d9941a15869f83b02";
+  var clientID = "8749d4d40a72490aac3a512871158c4a";
+  var clientSID = "545f835255d6433d9941a15869f83b02";
   const redirectURL = "http://localhost:3000";
   const authendpointURL = "https://accounts.spotify.com/authorize";
   const responseType = "token";
-  const scopeType = "user-top-read";
+  const scopeType =
+    "user-top-read user-read-private user-read-email user-modify-playback-state user-read-playback-position user-library-read streaming user-read-playback-state user-read-recently-played playlist-read-private";
+  const TOKEN = "https://accounts.spotify.com/api/token";
   const url = `${authendpointURL}?client_id=${clientID}&response_type=${responseType}&redirect_uri=${redirectURL}&scope=${scopeType}`;
 
   const [token, setToken] = useState("");
+  const [code, setCode] = useState("");
   const [searchKey, setSearchKey] = useState("");
   const [artists, setArtists] = useState([]);
   const [topItems, setTopItems] = useState([]);
@@ -28,7 +32,7 @@ function App() {
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
-    console.log(token);
+    console.log("hash", hash);
 
     if (!token && hash) {
       token = hash
@@ -38,7 +42,7 @@ function App() {
         .split("=")[1];
 
       //console.log(token);
-
+      console.log("hash", hash);
       //this line of code removes the hash from the web browser!
       window.location.hash = "";
 
@@ -46,26 +50,99 @@ function App() {
       window.localStorage.setItem("token", token);
     }
 
+    //onPageLoad();
     setToken(token);
-    console.log("token", token);
-    /*var authParameters = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body:
-        "grant_type=client_credentials&client_id=" +
-        clientID +
-        "&client_secret=" +
-        clientSID +
-        "&scope" +
-        scopeType,
-    };
-
-    fetch("https://accounts.spotify.com/api/token", authParameters)
-      .then((result) => result.json())
-      .then((data) => setToken(data.access_token));*/
+    //handleRedirect();
+    //console.log("token", token);
   }, []);
+
+  function onPageLoad() {
+    clientID = localStorage.getItem("client_id");
+    clientSID = localStorage.getItem("client_secret");
+    if (window.location.search.length > 0) {
+      handleRedirect();
+    }
+  }
+
+  function requestAuthorization() {
+    clientID = document.getElementById("clientId").value;
+    clientSID = document.getElementById("clientSecret").value;
+    localStorage.setItem("client_id", clientID);
+    localStorage.setItem("client_secret", clientSID); // In a real app you should not expose your client_secret to the user
+
+    let url = authendpointURL;
+    url += "?client_id=" + clientID;
+    url += "&response_type=code";
+    url += "&redirect_uri=" + encodeURI(redirectURL);
+    url += "&show_dialog=true";
+    url +=
+      "&scope=user-read-private user-read-email user-modify-playback-state user-read-playback-position user-library-read streaming user-read-playback-state user-read-recently-played playlist-read-private";
+    window.location.href = url; // Show Spotify's authorization screen
+  }
+
+  function handleRedirect() {
+    let codeTest = getCode();
+    setCode(codeTest);
+    fetchAccessToken(codeTest);
+    console.log("code", code);
+    window.history.pushState("", "", redirectURL);
+  }
+
+  function getCode() {
+    let code = null;
+    const queryString = window.location.search;
+    if (queryString.length > 0) {
+      const urlParams = new URLSearchParams(queryString);
+      code = urlParams.get("code");
+    }
+    return code;
+  }
+
+  function fetchAccessToken(code) {
+    let body = "grant_type=authorization_code";
+    body += "&code=" + code;
+    body += "&redirect_uri=" + redirectURL;
+    body += "&client_id=" + clientID;
+    body += "&client_secret=" + clientSID;
+    callAuthorizationApi(code);
+  }
+
+  async function callAuthorizationApi(code) {
+    let holder = Buffer.from(clientID + ":" + clientSID).toString("base64");
+    const { data } = await axios.post(
+      "https://accounts.spotify.com/api/token",
+      {
+        body: {
+          grant_type: "authorization_code",
+          code: { code },
+          redirect_uri: encodeURI(redirectURL),
+        },
+        headers: {
+          Authorization: "Basic " + holder,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
+    console.log("test", data.access_token);
+    return data.access_token;
+  }
+
+  function handleAuthorizationResponse() {
+    if (this.status == 200) {
+      var data = JSON.parse(this.responseText);
+      console.log(data);
+      setToken(data.access_token);
+      var data = JSON.parse(this.responseText);
+      if (data.access_token != undefined) {
+        setToken(data.access_token);
+        localStorage.setItem("access_token", data.access_token);
+      }
+    } else {
+      console.log("test", this.responseText);
+      console.log();
+      alert(this.responseText);
+    }
+  }
 
   function logoutFunction() {
     //this removes the token we have saved once we logout!
@@ -130,10 +207,6 @@ function App() {
     ));
   }
 
-  function addCount() {
-    setCurrCount(currCount + 1);
-  }
-
   function renderTopItems() {
     return topItems.map((topItem) => (
       <div className="showingTopItems">
@@ -146,6 +219,10 @@ function App() {
         />
       </div>
     ));
+  }
+
+  function addCount() {
+    setCurrCount(currCount + 1);
   }
 
   function setDaily() {
@@ -183,7 +260,7 @@ function App() {
 
       {!token ? (
         <div className="loginDiv">
-          <a href={url}>
+          <a href={url} onClick={requestAuthorization}>
             <button>Login To Spotify</button>
           </a>
         </div>
@@ -252,44 +329,6 @@ function App() {
       ) : (
         <h></h>
       )}
-
-      {/*token ? (
-        <div className="topUserItems">
-          {" "}
-          <h>Display Top Artists</h>
-          <div className="buttonDiv">
-            <button onClick={setDaily}>Daily</button>
-            <button onClick={setMonthly}>Monthly</button>
-            <button onClick={setYearly}>Yearly</button>
-          </div>
-          <h>{result()}</h>
-          <div>
-            <button onClick={combine}> Find Top Aritsts</button>
-          </div>
-        </div>
-      ) : (
-        <h> </h>
-      )*/}
-
-      {/*token ? <div> {renderTopItems()} </div> : <h></h>*/}
-
-      {/*token ? (
-        <div className="searchDiv">
-          <h className="searhForHeader"> Search For Your Artists </h>
-          <form onSubmit={searchArtists}>
-            <input
-              type="text"
-              onChange={(e) => setSearchKey(e.target.value)}
-            ></input>
-
-            <button type="submit"> Start </button>
-          </form>
-        </div>
-      ) : (
-        <h> </h>
-      )*/}
-
-      {/*token ? <div> {renderArtists()} </div> : <h></h>*/}
     </div>
   );
 }

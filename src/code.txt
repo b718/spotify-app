@@ -1,0 +1,58 @@
+     {/*token ? (
+        <div className="topUserItems">
+          {" "}
+          <h>Display Top Artists</h>
+          <div className="buttonDiv">
+            <button onClick={setDaily}>Daily</button>
+            <button onClick={setMonthly}>Monthly</button>
+            <button onClick={setYearly}>Yearly</button>
+          </div>
+          <h>{result()}</h>
+          <div>
+            <button onClick={combine}> Find Top Aritsts</button>
+          </div>
+        </div>
+      ) : (
+        <h> </h>
+      )*/}
+
+      {/*token ? <div> {renderTopItems()} </div> : <h></h>*/}
+
+      {/*token ? (
+        <div className="searchDiv">
+          <h className="searhForHeader"> Search For Your Artists </h>
+          <form onSubmit={searchArtists}>
+            <input
+              type="text"
+              onChange={(e) => setSearchKey(e.target.value)}
+            ></input>
+
+            <button type="submit"> Start </button>
+          </form>
+        </div>
+      ) : (
+        <h> </h>
+      )*/}
+
+      {/*token ? <div> {renderArtists()} </div> : <h></h>*/}
+
+
+        /*var authParameters = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body:
+        "&code=" +
+        code +
+        "grant_type=client_credentials&client_id=" +
+        clientID +
+        "&client_secret=" +
+        clientSID +
+        "&scope" +
+        scopeType,
+    };
+
+    fetch("https://accounts.spotify.com/api/token", authParameters)
+      .then((result) => result.json())
+      .then((data) => setToken(data.access_token));*/
