@@ -27,6 +27,7 @@ function App() {
   const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURL}&scope=${scopeType.join(
     "%20"
   )}&response_type=${responseType}`;
+  const local8888 = "http://localhost:8888";
 
   const [token, setToken] = useState("");
   const [code, setCode] = useState("");
@@ -64,6 +65,7 @@ function App() {
 
     //onPageLoad();
     setToken(token);
+    console.log(token);
     //handleRedirect();
     //console.log("token", token);
   }, []);
@@ -207,11 +209,11 @@ function App() {
   }
 
   function result() {
-    if (currTimeRange.length == "short_term".length) {
+    if (currTimeRange.length === "short_term".length) {
       return "Daily";
-    } else if (currTimeRange.length == "medium_term".length) {
+    } else if (currTimeRange.length === "medium_term".length) {
       return "Monthly";
-    } else if (currTimeRange.length == "long_term".length) {
+    } else if (currTimeRange.length === "long_term".length) {
       return "Yearly";
     } else {
       return "";
@@ -263,7 +265,7 @@ function App() {
       )}
 
       <div className="currTypeDiv"> {currType}</div>
-      {token && currType.length == 5 ? (
+      {token && currType.length === 5 ? (
         <div>
           <div className="topUserItems">
             {" "}
@@ -281,7 +283,7 @@ function App() {
 
           <div> {renderTopItems()} </div>
         </div>
-      ) : token && currType.length == 6 ? (
+      ) : token && currType.length === 6 ? (
         <div>
           <div className="searchDiv">
             <h className="searhForHeader"> Search For Your Artists </h>
