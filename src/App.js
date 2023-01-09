@@ -3,18 +3,30 @@ import "./App.css";
 import axios from "axios";
 import Artist from "./js/artist.js";
 import ParticlesBackground from "./components/ParticlesBackground";
-import { Buffer } from "buffer";
+import { decode as base64_decode, encode as base64_encode } from "base-64";
 
 function App() {
-  var clientID = "8749d4d40a72490aac3a512871158c4a";
-  var clientSID = "545f835255d6433d9941a15869f83b02";
+  const clientID = "8749d4d40a72490aac3a512871158c4a";
+  const clientSID = "545f835255d6433d9941a15869f83b02";
   const redirectURL = "http://localhost:3000";
   const authendpointURL = "https://accounts.spotify.com/authorize";
   const responseType = "token";
-  const scopeType =
-    "user-top-read user-read-private user-read-email user-modify-playback-state user-read-playback-position user-library-read streaming user-read-playback-state user-read-recently-played playlist-read-private";
+  const scopeType = [
+    "user-top-read",
+    "user-read-private",
+    "user-read-email",
+    "user-modify-playback-state",
+    "user-read-playback-position",
+    "user-library-read streaming",
+    "user-read-playback-state",
+    "user-read-recently-played",
+    "playlist-read-private",
+  ];
   const TOKEN = "https://accounts.spotify.com/api/token";
   const url = `${authendpointURL}?client_id=${clientID}&response_type=${responseType}&redirect_uri=${redirectURL}&scope=${scopeType}`;
+  const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURL}&scope=${scopeType.join(
+    "%20"
+  )}&response_type=${responseType}`;
 
   const [token, setToken] = useState("");
   const [code, setCode] = useState("");
@@ -56,36 +68,12 @@ function App() {
     //console.log("token", token);
   }, []);
 
-  function onPageLoad() {
-    clientID = localStorage.getItem("client_id");
-    clientSID = localStorage.getItem("client_secret");
-    if (window.location.search.length > 0) {
-      handleRedirect();
-    }
-  }
-
-  function requestAuthorization() {
-    clientID = document.getElementById("clientId").value;
-    clientSID = document.getElementById("clientSecret").value;
-    localStorage.setItem("client_id", clientID);
-    localStorage.setItem("client_secret", clientSID); // In a real app you should not expose your client_secret to the user
-
-    let url = authendpointURL;
-    url += "?client_id=" + clientID;
-    url += "&response_type=code";
-    url += "&redirect_uri=" + encodeURI(redirectURL);
-    url += "&show_dialog=true";
-    url +=
-      "&scope=user-read-private user-read-email user-modify-playback-state user-read-playback-position user-library-read streaming user-read-playback-state user-read-recently-played playlist-read-private";
-    window.location.href = url; // Show Spotify's authorization screen
-  }
-
   function handleRedirect() {
     let codeTest = getCode();
     setCode(codeTest);
-    fetchAccessToken(codeTest);
-    console.log("code", code);
-    window.history.pushState("", "", redirectURL);
+    console.log("code", codeTest);
+    let tokenHolder = requestAccessToken(codeTest);
+    setToken(tokenHolder);
   }
 
   function getCode() {
@@ -98,50 +86,33 @@ function App() {
     return code;
   }
 
-  function fetchAccessToken(code) {
-    let body = "grant_type=authorization_code";
-    body += "&code=" + code;
-    body += "&redirect_uri=" + redirectURL;
-    body += "&client_id=" + clientID;
-    body += "&client_secret=" + clientSID;
-    callAuthorizationApi(code);
-  }
+  async function requestAccessToken(code) {
+    const clientId = clientID;
+    const clientSecret = clientSID;
+    const redirectUri = "http://localhost:3000/callback";
+    let encoded = base64_encode(`${clientId}:${clientSecret}`);
+    console.log(encoded);
 
-  async function callAuthorizationApi(code) {
-    let holder = Buffer.from(clientID + ":" + clientSID).toString("base64");
-    const { data } = await axios.post(
-      "https://accounts.spotify.com/api/token",
-      {
-        body: {
-          grant_type: "authorization_code",
-          code: { code },
-          redirect_uri: encodeURI(redirectURL),
-        },
-        headers: {
-          Authorization: "Basic " + holder,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
-    );
-    console.log("test", data.access_token);
-    return data.access_token;
-  }
+    console.log("reach");
 
-  function handleAuthorizationResponse() {
-    if (this.status == 200) {
-      var data = JSON.parse(this.responseText);
-      console.log(data);
-      setToken(data.access_token);
-      var data = JSON.parse(this.responseText);
-      if (data.access_token != undefined) {
-        setToken(data.access_token);
-        localStorage.setItem("access_token", data.access_token);
-      }
-    } else {
-      console.log("test", this.responseText);
-      console.log();
-      alert(this.responseText);
-    }
+    const { tokenResponse } = await axios({
+      method: "post",
+      url: "https://accounts.spotify.com/api/token",
+      params: {
+        grant_type: "authorization_code",
+        code: code,
+        redirect_uri: redirectUri,
+        client_id: clientId,
+        client_secret: clientSecret,
+      },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${encoded}`,
+      },
+    });
+
+    console.log("token", tokenResponse.data.access_token);
+    return tokenResponse.data.access_token;
   }
 
   function logoutFunction() {
@@ -260,7 +231,7 @@ function App() {
 
       {!token ? (
         <div className="loginDiv">
-          <a href={url} onClick={requestAuthorization}>
+          <a href={spotifyAuthUrl}>
             <button>Login To Spotify</button>
           </a>
         </div>
