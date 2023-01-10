@@ -6,7 +6,7 @@ import ParticlesBackground from "./components/ParticlesBackground";
 import { decode as base64_decode, encode as base64_encode } from "base-64";
 
 function App() {
-  const clientID = "8749d4d40a72490aac3a512871158c4a";
+  const clientID = "e5f0c715ada3419283ea5750988c5501";
   const clientSID = "545f835255d6433d9941a15869f83b02";
   const redirectURL = "http://localhost:3000";
   const authendpointURL = "https://accounts.spotify.com/authorize";
