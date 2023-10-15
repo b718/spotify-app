@@ -5,7 +5,7 @@ This app is not live for now, as it was meant to be an app for me to check my da
 # Project Image
 
 <p align="center" width="100%">
-  <img width="1700" alt="Screen Shot 2023-08-28 at 11 50 35 PM" src="https://github-production-user-asset-6210df.s3.amazonaws.com/56049467/275314022-6fe74fd5-a094-4bb3-aa7c-157105c14ac0.png">
+  <img width="700" alt="Screen Shot 2023-08-28 at 11 50 35 PM" src="https://github-production-user-asset-6210df.s3.amazonaws.com/56049467/275314022-6fe74fd5-a094-4bb3-aa7c-157105c14ac0.png">
 
 <img width="478" alt="Screen Shot 2023-08-28 at 11 56 19 PM" src="https://github.com/b718/spotify-app/assets/56049467/8060d41d-c471-40c2-9c24-892c3111e24c">
 </p>
