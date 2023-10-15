@@ -229,7 +229,7 @@ function App() {
     <div className="App">
       <ParticlesBackground />
 
-      <h className="spotifyHeader">Spotify API Testing</h>
+      <h className="spotifyHeader">Spotify Project</h>
 
       {!token ? (
         <div className="loginDiv">
