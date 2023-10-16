@@ -104,12 +104,9 @@ function App() {
         grant_type: "authorization_code",
         code: code,
         redirect_uri: redirectUri,
-        client_id: clientId,
-        client_secret: clientSecret,
       },
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${encoded}`,
       },
     });
 
